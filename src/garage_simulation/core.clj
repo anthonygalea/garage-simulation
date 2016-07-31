@@ -24,11 +24,9 @@
    (ref-set vehicles {})
    (ref-set empty-parking-spaces
             (into #{}
-                  (apply concat
-                         (map-indexed (fn [level number-of-parking-spaces]
-                                        (map #(vector level %)
-                                             (range number-of-parking-spaces)))
-                                      parking-spaces))))))
+                  (for [[level spaces] (map-indexed vector parking-spaces)
+                        space-number (range spaces)]
+                    [level space-number])))))
 
 (def licence-plate-regex #"[A-Z]{4}\d{3}")
 
